@@ -5,7 +5,7 @@ If you are interested in the design process behind this pcb, take a look at [thi
 Using a backplane allows multiple disks to be connected to a single power-supply cable. For this a 4-pin molex connector is used as it can sustain the spinup current of 4 disks.
 
 ### How to order    
-Download the the latest gerber-files from the release tab. Order then on e.g. jlcpcb.com.     
+Download the the latest gerber-files from the [release tab](https://github.com/shirnschall/4x-sata-backplane/releases). Order then on e.g. jlcpcb.com.     
 Use the following settings when ordering:
 - PCB thickness: 1.6mm
 - Layers: 4
