@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "shirnschall")(type "KiCad")(uri "${KIPRJMOD}/../KiCad-Lib/footprints/shirnschall.pretty")(options "")(descr ""))
+)

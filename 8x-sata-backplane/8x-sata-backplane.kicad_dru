@@ -1,0 +1,119 @@
+(version 1)
+#
+# JLCPCB 1oz 4-layer design rules (24.02.2024)
+#
+# Mouse bites are not checked, castellated holes and slots are only partialy checked
+
+######################## DRILL/HOLE SIZE ###########################
+(rule "Hole size"
+	(constraint hole_size (min 0.15mm) (max 6.30mm)))
+
+######################## VIA SIZE ###########################
+
+(rule "Disallow blind/buried vias"
+	(constraint disallow buried_via))
+
+(rule "Via hole size"
+	(condition "A.Type == 'Via'")
+	(constraint hole_size (min 0.3mm)))
+(rule "Minimum annular via ring"
+	(condition "A.Type == 'Via'")
+	(constraint annular_width (min 0.075mm)))
+(rule "Via diameter size"
+	(constraint via_diameter (min 0.45mm)))
+
+######################## PTH PAD SIZE ###########################
+
+(rule "PTH hole size"
+	(condition "A.isPlated() && A.Type == 'Pad'")
+	(constraint hole_size (min 0.2mm) (max 6.35mm)))
+(rule "PTH annular via ring"
+	(condition "A.isPlated() && A.Type == 'Pad'")
+	(constraint annular_width (min 0.15mm)))
+(rule "PTH diameter size"
+	(condition "A.isPlated() && A.Type == 'Pad'")
+	(constraint via_diameter (min 1.0mm)))
+
+# Pad Size
+(rule "Minimum PTH Pad Size"
+	(condition "A.isPlated() && A.Type == 'Pad' && (A.Hole_Size_X <= 0.7mm || A.Hole_Size_y <= 0.7mm)")
+	(constraint annular_width (min 0.25mm)))
+
+######################## NPTH PAD SIZE ###########################
+
+(rule "Minimum NPTH to copper clearance"
+	(condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && !A.isPlated()")
+	(constraint physical_hole_clearance (min 0.2mm)))
+
+(rule "Minimum NPTH Size"
+	(condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole' && !A.isPlated()")
+	(constraint hole_size (min 0.5mm)))
+	
+######################## CASTELLATED HOLES ###########################
+(rule "Minimum Castellated Hole Size"
+	(constraint hole_size (min 0.6mm))
+	(condition "A.Type == 'pad' && A.Fabrication_Property == 'Castellated pad'"))
+
+######################## SLOTS ###########################
+(rule "Minimum plated slot size"
+	(condition "A.isPlated() && A.Hole_Size_X != A.Hole_Size_Y")
+	(constraint hole_size (min 0.5mm)))
+
+(rule "Minimum non plated slot size"
+	(condition "!A.isPlated() && A.Pad_Type == 'Through-hole' && A.Hole_Size_X != A.Hole_Size_Y")
+	(constraint hole_size (min 1.0mm)))
+
+######################## CLEARANCE ###########################
+
+(rule "Minimum hole to hole clearance (different nets)"
+	(condition "A.Net != B.Net")
+	(constraint hole_to_hole (min 0.508mm)))
+
+(rule "Minimum hole to hole clearance (same nets)"
+	(condition "A.Net == B.Net && A.Type == 'Via' && B.Type == 'Via'")
+	(constraint hole_to_hole (min 0.254mm)))
+
+(rule "Minimum SMD pad to pad clearance"
+	(condition "A.Net != B.Net && A.Type == 'Pad' && A.Pad_Type == 'SMD' && B.Type == 'Pad' && B.Pad_Type == 'SMD'")
+	(constraint clearance (min 0.127mm)))
+
+(rule "Minimum BGA pad size"
+	(condition "A.Fabrication_Property == 'BGA pad'")
+	(constraint assertion "A.Size_X <= 0.25mm"))
+
+
+(rule "Minimum via to track clearance"
+	(condition "A.Type == 'Via' && B.Type == 'Track'")
+	(constraint hole_clearance (min 0.254mm)))
+
+(rule "Minimum PTH to track clearance"
+	(condition "A.Type == 'Pad' && A.isPlated() && B.Type == 'Track'")
+	(constraint hole_clearance (min 0.3302mm)))
+
+(rule "Minimum NPTH to track clearance"
+	(condition "A.Type == 'Pad' && !A.isPlated() && A.Pad_Type == 'Through-hole' && B.Type == 'Track'")
+	(constraint hole_clearance (min 0.254mm)))
+
+(rule "Minimum pad to track clearance"
+	(condition "A.Type == 'Pad' && B.Type == 'Track'")
+	(constraint clearance (min 0.2mm)))
+
+
+######################## TRACE WIDTH AND SPACING ###########################
+
+(rule "Minimum trace spacing"
+	(condition "A.Type == 'Track' && B.Type == 'Track'")
+	(constraint clearance (min 0.09mm)))
+
+(rule "Minimum trace width"
+	(constraint track_width (min 0.09mm)))
+
+
+######################## EDGE CLEARANCE ###########################
+
+# edge clearance
+(rule "Trace to Outline"
+	(constraint edge_clearance (min 0.3mm)))
+	# use 0,4mm for V-Cuts
+	#(constraint edge_clearance (min 0.3mm)))
+
