@@ -1,5 +1,5 @@
 ## Custom 4x SATA Backplane for home-nas and servers
-If you are interested in the design process behind this pcb, take a look at [this accompanying blog post.](https://blog.hirnschall.net/custom-4x-sata-backplane)
+If you are interested in the design process behind this pcb, take a look at [this accompanying blog post.](https://blog.hirnschall.net/4x-sata-backplane)
 
 ### Why use a backplane
 Using a backplane allows multiple disks to be connected to a single power-supply cable. For this a 4-pin molex connector is used as it can sustain the spinup current of 4 disks.
