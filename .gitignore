@@ -1,6 +1,8 @@
 # For PCBs designed using KiCad: https://www.kicad.org/
 # Format documentation: https://kicad.org/help/file-formats/
 
+drive-cage-cad
+
 # Temporary files
 *.000
 *.bak
@@ -27,3 +29,5 @@ fp-info-cache
 # Exported BOM files
 *.xml
 *.csv
+
+
